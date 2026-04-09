@@ -23,10 +23,14 @@ namespace CRUD.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _appDbContext.login.Add(user);
             await _appDbContext.SaveChangesAsync();
 
-            return Ok(user);
+            return Created("User created successfully", user);
         }
 
         [HttpGet]
