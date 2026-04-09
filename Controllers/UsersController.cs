@@ -48,8 +48,25 @@ namespace CRUD.Controllers
             _appDbContext.Entry(existingUser).CurrentValues.SetValues(updatedUser);
 
             await _appDbContext.SaveChangesAsync();
-            
+
             return StatusCode(201, existingUser);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task <IActionResult> DeleteUser(int id)
+        {
+            var user = await _appDbContext.login.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            _appDbContext.login.Remove(user);
+
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok("User deleted successfully");
         }
     }
 }
