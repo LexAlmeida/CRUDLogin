@@ -18,7 +18,7 @@ namespace CRUD.Migrations
                 .HasAnnotation("ProductVersion", "8.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("CRUD.Models.Usuario", b =>
+            modelBuilder.Entity("CRUD.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -27,10 +27,10 @@ namespace CRUD.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("Password")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

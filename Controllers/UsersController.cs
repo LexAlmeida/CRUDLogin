@@ -35,5 +35,21 @@ namespace CRUD.Controllers
             var users = await _appDbContext.login.ToListAsync();
             return Ok(users);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
+        {
+            var existingUser = await _appDbContext.login.FindAsync(id);
+            if (existingUser == null)
+            {
+                return NotFound("User not found");
+            }
+            
+            _appDbContext.Entry(existingUser).CurrentValues.SetValues(updatedUser);
+
+            await _appDbContext.SaveChangesAsync();
+            
+            return StatusCode(201, existingUser);
+        }
     }
 }
