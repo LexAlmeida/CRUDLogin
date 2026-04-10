@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CRUD.Data;
 using CRUD.DTOs;
 using CRUD.Models;
@@ -17,14 +13,23 @@ namespace CRUD.Controllers
         private readonly AppDbContext _appDbContext;
 
         public UsersController(AppDbContext appDbContext)
-        {
+        {   
             _appDbContext = appDbContext;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
         {
-            var users = await _appDbContext.login.ToListAsync();
+            var users = await _appDbContext.login
+                .AsNoTracking()
+                .Select(u => new UserResponseDto
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email
+                })
+                .ToListAsync();
+
             return Ok(users);
         }
 
@@ -48,7 +53,7 @@ namespace CRUD.Controllers
                 Email = existingUser.Email
             };
 
-            return StatusCode(201, responseUser);
+            return Ok(responseUser);
         }
 
         [HttpDelete("{id}")]
@@ -65,7 +70,8 @@ namespace CRUD.Controllers
 
             await _appDbContext.SaveChangesAsync();
 
-            return Ok("User deleted successfully");
+            //return Ok("User deleted successfully");
+            return NoContent();
         }
     }
 }
