@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C6DAqJzLNia11ZRg0qUhoukP4lTSZBmli5dvdgEzngkmsf6Z+BGlWpVROqQmvBvsZO0JZ01NZ9CYTx45RaJQDQ==",
+  "dgSpecHash": "aFAKRhqYXa4Pv4e70PEhPUZ5XBFq2X8QYtjvGxyPFNvSEZwwf2Cm1aiGffGGV3+19VY9mDfjXpdKakPmwV6jQg==",
   "success": true,
   "projectFilePath": "/home/alex-de-almeida/AngelLira/CRUD/CRUD.csproj",
   "expectedPackageFiles": [
+    "/home/alex-de-almeida/.nuget/packages/bcrypt.net-next/4.1.0/bcrypt.net-next.4.1.0.nupkg.sha512",
     "/home/alex-de-almeida/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/alex-de-almeida/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "/home/alex-de-almeida/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.3/microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",

@@ -20,19 +20,6 @@ namespace CRUD.Controllers
             _appDbContext = appDbContext;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            _appDbContext.login.Add(user);
-            await _appDbContext.SaveChangesAsync();
-
-            return Created("User created successfully", user);
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
