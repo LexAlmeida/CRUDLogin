@@ -18,10 +18,15 @@ namespace CRUD.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var users = await _appDbContext.login
-                .AsNoTracking()
+            var query = _appDbContext.login.AsNoTracking();
+
+            var totalUsers = await query.CountAsync();
+
+            var users = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(u => new UserResponseDto
                 {
                     Id = u.Id,
@@ -30,7 +35,13 @@ namespace CRUD.Controllers
                 })
                 .ToListAsync();
 
-            return Ok(users);
+            return Ok(new
+            {
+                TotalUsers = totalUsers,
+                Page = page,
+                PageSize = pageSize,
+                Data = users
+            });
         }
 
         [HttpPut("{id}")]
