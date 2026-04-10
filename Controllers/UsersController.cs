@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CRUD.Data;
+using CRUD.DTOs;
 using CRUD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace CRUD.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserDto updatedUser)
         {
             var existingUser = await _appDbContext.login.FindAsync(id);
             if (existingUser == null)
@@ -40,7 +41,14 @@ namespace CRUD.Controllers
 
             await _appDbContext.SaveChangesAsync();
 
-            return StatusCode(201, existingUser);
+            var responseUser = new UserResponseDto
+            {
+                Id = existingUser.Id,
+                Name = existingUser.Name,
+                Email = existingUser.Email
+            };
+
+            return StatusCode(201, responseUser);
         }
 
         [HttpDelete("{id}")]

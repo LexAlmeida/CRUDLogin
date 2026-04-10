@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using CRUD.Data;
 using CRUD.DTOs;
 using CRUD.Models;
@@ -32,6 +27,7 @@ namespace CRUD.Controllers
 
             var newUser = new User
             {
+                Name = request.Name,
                 Email = request.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
             };
@@ -43,7 +39,7 @@ namespace CRUD.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AuthrequestDto request)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
             var user = await _appDbContext.login.FirstOrDefaultAsync(u => u.Email == request.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
